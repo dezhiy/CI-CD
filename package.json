@@ -1,0 +1,22 @@
+{
+  "name": "BSK",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "coverage": "jest test/ --coverage",
+    "lint": "eslint src/",
+    "start": "node app.js FSE-ESN",
+    "stop": "killall -SIGINT FSE-ESN",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.5.2"
+  }
+}

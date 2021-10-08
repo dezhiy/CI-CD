@@ -1,0 +1,27 @@
+version: 2.1 # CircleCI syntax version
+jobs: # a collection of steps
+  build: # runs that are not using Workflows must have a `build` job as the entry point
+    docker:
+      - image: circleci/node:10.16.3 # the first image is the primary container; this is where all `steps` will run
+    steps: # a collection of executable commands 
+      - checkout # check out source code to working directory
+      - restore_cache: 
+          name: Restore Dependency Cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: NPM Install
+          command: npm install
+      - save_cache:
+          name: Save Dependency Cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run: #eslint
+          name: eslint
+          command: npm run lint 
+      - run: # run tests
+          name: Run Tests and Coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage/lcov-report
+          destination: coverage
